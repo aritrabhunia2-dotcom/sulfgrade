@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>H2S Guard - Edit Profile</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/register.css') }}">
+
+</head>
+
+<body>
+
+<div class="register-page">
+
+    <div class="register-card">
+
+        <a href="{{ url_for('profile') }}" class="back">&#8249;</a>
+
+        <div class="logo">H2S</div>
+
+        <h1>Edit Profile</h1>
+
+        <p class="subtitle">Update your personal and work information</p>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="message {{ category }}">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        <form method="POST" action="{{ url_for('edit_profile') }}">
+
+            <label for="full_name">Full Name</label>
+            <input id="full_name" type="text" name="full_name" value="{{ user.full_name }}" required>
+
+            <label for="email">Email</label>
+            <input id="email" type="email" name="email" value="{{ user.email }}" required>
+
+            <label for="mobile">Mobile Number</label>
+            <input id="mobile" type="tel" name="mobile" value="{{ user.mobile }}" required>
+
+            <label for="department">Department</label>
+            <input id="department" type="text" name="department" value="{{ user.department or 'Operations' }}" required>
+
+            <label for="designation">Designation</label>
+            <input id="designation" type="text" name="designation" value="{{ user.designation or 'Field Technician' }}" required>
+
+            <label for="site">Site</label>
+            <input id="site" type="text" name="site" value="{{ user.site or 'MRPL - Refinery' }}" required>
+
+            <label for="shift">Shift</label>
+            <select id="shift" name="shift" required>
+                <option value="Day (6:00 AM - 2:00 PM)" {% if user.shift == 'Day (6:00 AM - 2:00 PM)' %}selected{% endif %}>Day (6:00 AM - 2:00 PM)</option>
+                <option value="Evening (2:00 PM - 10:00 PM)" {% if user.shift == 'Evening (2:00 PM - 10:00 PM)' %}selected{% endif %}>Evening (2:00 PM - 10:00 PM)</option>
+                <option value="Night (10:00 PM - 6:00 AM)" {% if user.shift == 'Night (10:00 PM - 6:00 AM)' %}selected{% endif %}>Night (10:00 PM - 6:00 AM)</option>
+            </select>
+
+            <button type="submit">Save Changes</button>
+
+        </form>
+
+        <p class="login-link">
+            <a href="{{ url_for('profile') }}">Cancel</a>
+        </p>
+
+    </div>
+
+</div>
+
+</body>
+
+</html>

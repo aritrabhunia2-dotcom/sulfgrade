@@ -1,0 +1,6 @@
+Flask>=3.1
+Werkzeug>=3.1
+numpy>=2.0
+opencv-python-headless>=4.10
+joblib>=1.4
+scikit-learn>=1.5

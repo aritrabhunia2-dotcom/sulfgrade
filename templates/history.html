@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>H2S Guard - Reading History</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            padding-bottom: 24px;
+            background: #f8faf9;
+            color: #173e36;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        .history-page {
+            width: min(980px, 100%);
+            margin: 0 auto;
+            padding: 24px;
+        }
+
+        .history-header {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 12px;
+        }
+
+        .back-link {
+            color: #176c49;
+            font-size: 30px;
+            font-weight: 700;
+            text-decoration: none;
+        }
+
+        h1 {
+            margin: 0;
+            color: #176c49;
+            font-size: clamp(25px, 4vw, 36px);
+        }
+
+        .history-toolbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            margin: 0 0 24px 50px;
+        }
+
+        .period-select {
+            padding: 10px 12px;
+            border: 1px solid #d8dfdc;
+            border-radius: 8px;
+            background: white;
+            color: #173e36;
+            font-size: 15px;
+        }
+
+        .history-card {
+            overflow-x: auto;
+            border: 1px solid #dce7e1;
+            border-radius: 14px;
+            background: white;
+            box-shadow: 0 4px 16px rgba(25, 55, 45, 0.08);
+        }
+
+        table {
+            width: 100%;
+            min-width: 620px;
+            border-collapse: collapse;
+        }
+
+        th,
+        td {
+            padding: 16px 20px;
+            border-bottom: 1px solid #e5e9e7;
+            text-align: left;
+        }
+
+        th {
+            background: #eff8f3;
+            color: #176c49;
+            font-size: 16px;
+        }
+
+        td {
+            color: #203f3a;
+            font-size: 16px;
+        }
+
+        tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+        .empty-state {
+            padding: 42px 24px;
+            color: #71817d;
+            text-align: center;
+            font-size: 18px;
+        }
+
+        @media (max-width: 640px) {
+            .history-page {
+                padding: 16px;
+            }
+
+            th,
+            td {
+                padding: 13px 15px;
+            }
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <main class="history-page">
+
+        <header class="history-header">
+            <a class="back-link" href="{{ url_for('home') }}" aria-label="Back to home">&#8249;</a>
+            <h1>Reading History</h1>
+        </header>
+
+        <div class="history-toolbar">
+            <span>{{ period_label }} readings</span>
+            <form method="GET" action="{{ url_for('history') }}">
+                <label for="history-period" class="visually-hidden">Reading period</label>
+                <select id="history-period" class="period-select" name="period" onchange="this.form.submit()">
+                    <option value="today" {% if selected_period == 'today' %}selected{% endif %}>Today</option>
+                    <option value="yesterday" {% if selected_period == 'yesterday' %}selected{% endif %}>Yesterday</option>
+                    <option value="week" {% if selected_period == 'week' %}selected{% endif %}>This Week</option>
+                </select>
+            </form>
+        </div>
+
+        <section class="history-card">
+            {% if readings %}
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Date and Time</th>
+                            <th>H2S Level (ppm)</th>
+                            <th>Exposure (ppm&middot;hr)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for reading in readings %}
+                            <tr>
+                                <td>
+                                    {% if reading.recorded_at %}
+                                        {{ reading.recorded_at.strftime('%d %b %Y, %I:%M %p') }}
+                                    {% else %}
+                                        Not recorded
+                                    {% endif %}
+                                </td>
+                                <td>{{ '%.2f'|format(reading.h2s_level or 0) }}</td>
+                                <td>{{ '%.2f'|format(reading.exposure_ppm_hr or 0) }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% else %}
+                <p class="empty-state">No exposure readings have been recorded yet.</p>
+            {% endif %}
+        </section>
+
+    </main>
+
+</body>
+
+</html>

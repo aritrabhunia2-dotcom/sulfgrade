@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>H2S Guard - Health Guidelines</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            background: #f8faf9;
+            color: #173e36;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        .guidelines-page {
+            width: min(1100px, 100%);
+            min-height: 100vh;
+            margin: 0 auto;
+            padding: 24px;
+        }
+
+        .guidelines-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+            margin-bottom: 18px;
+        }
+
+        .back-link {
+            color: #176c49;
+            font-size: 30px;
+            font-weight: 700;
+            text-decoration: none;
+        }
+
+        .guidelines-header h1 {
+            margin: 0;
+            color: #176c49;
+            font-size: clamp(24px, 4vw, 36px);
+            text-align: center;
+        }
+
+        .health-image {
+            display: block;
+            width: 100%;
+            max-height: calc(100vh - 125px);
+            margin: 0 auto;
+            border: 1px solid #dce7e1;
+            border-radius: 12px;
+            background: white;
+            object-fit: contain;
+        }
+
+        @media (max-width: 640px) {
+            .guidelines-page {
+                padding: 16px;
+            }
+
+            .guidelines-header {
+                justify-content: flex-start;
+            }
+
+            .guidelines-header h1 {
+                font-size: 25px;
+            }
+
+            .health-image {
+                max-height: calc(100vh - 95px);
+            }
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <main class="guidelines-page">
+
+        <header class="guidelines-header">
+            <a class="back-link" href="{{ url_for('home') }}" aria-label="Back to home">&#8249;</a>
+            <h1>Health Guidelines</h1>
+        </header>
+
+        <img
+            class="health-image"
+            src="{{ url_for('static', filename='images/health guidelines.jpeg') }}"
+            alt="Health guidelines"
+        >
+
+    </main>
+
+</body>
+
+</html>

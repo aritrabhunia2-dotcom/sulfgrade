@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        H2S Guard - Home
+    </title>
+
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='css/home.css') }}"
+    >
+
+</head>
+
+
+<body>
+
+
+<div class="app">
+
+
+    <!-- =====================================================
+         HEADER
+         ===================================================== -->
+
+    <header class="top-header">
+
+
+        <div class="worker-info">
+
+            <h1>
+
+                Hello,
+                {{ user.full_name }}
+
+                <span>👋</span>
+
+            </h1>
+
+
+            <p>
+
+                Worker ID:
+                {{ user.worker_id }}
+
+            </p>
+
+        </div>
+
+
+    </header>
+
+
+
+    <!-- =====================================================
+         MAIN
+         ===================================================== -->
+
+    <main class="content">
+
+
+        <!-- =================================================
+             STATUS CARD
+             ================================================= -->
+
+        <section class="status-card">
+
+
+            <div class="status-left">
+
+
+                <p class="label">
+
+                    <span class="green-dot"></span>
+
+                    Badge Status
+
+                </p>
+
+
+                <h2 class="active">
+
+                    {{ badge.status }}
+
+                </h2>
+
+
+                <p class="small-label">
+
+                    Wristband ID
+
+                </p>
+
+
+                <h3>
+
+                    {{ badge.wristband_id }}
+
+                </h3>
+
+
+            </div>
+
+
+
+            <!-- EXPOSURE CIRCLE -->
+
+            <div class="exposure-circle">
+
+
+                <div class="circle">
+
+                    <div class="circle-inner">
+
+                        <strong>
+                            {{ "%.2f"|format(current_level) }}
+                        </strong>
+
+                        <span>
+                            ppm
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <p>
+
+                    Last Analyzed Reading
+
+                </p>
+
+
+            </div>
+
+
+
+            <!-- EXPOSURE SUMMARY -->
+
+            <div class="exposure-summary">
+
+
+                <p class="label">
+
+                    Last Analyzed Reading
+
+                </p>
+
+
+                <strong>
+
+                    {{
+                        "%.2f"|format(
+                            latest.h2s_level or 0
+                        )
+                    }}
+
+                    <small>
+                        ppm
+                    </small>
+
+                </strong>
+
+
+                <p class="date">
+
+                    Today,
+
+                    {% if latest.recorded_at %}
+
+                        {{
+                            latest.recorded_at.strftime(
+                                "%I:%M %p"
+                            )
+                        }}
+
+                    {% else %}
+
+                        --:--
+
+                    {% endif %}
+
+                </p>
+
+
+            </div>
+
+
+        </section>
+
+
+
+        <!-- =================================================
+             EXPOSURE OVERVIEW
+             ================================================= -->
+
+        <section
+            class="card exposure-card"
+            id="exposure"
+        >
+
+
+            <div class="section-heading">
+
+
+                <h2>
+                    Exposure Overview
+                </h2>
+
+                <a
+                    class="history-link"
+                    href="{{ url_for('history', period=selected_period) }}"
+                >
+                    View History
+                </a>
+
+
+                <form method="GET" action="{{ url_for('home') }}" class="period-form">
+
+                    <label for="period" class="visually-hidden">
+                        Exposure period
+                    </label>
+
+                    <select
+                        id="period"
+                        name="period"
+                        class="today-button"
+                        onchange="this.form.submit()"
+                    >
+                        <option value="today" {% if selected_period == 'today' %}selected{% endif %}>Today</option>
+                        <option value="yesterday" {% if selected_period == 'yesterday' %}selected{% endif %}>Yesterday</option>
+                        <option value="week" {% if selected_period == 'week' %}selected{% endif %}>This Week</option>
+                    </select>
+
+                </form>
+
+
+            </div>
+
+
+            <div class="graph-area">
+
+
+                <div class="graph">
+
+
+                    <div class="y-axis">
+
+                        <span>10</span>
+
+                        <span>7.5</span>
+
+                        <span>5</span>
+
+                        <span>2.5</span>
+
+                        <span>0</span>
+
+                    </div>
+
+
+                    <svg
+                        viewBox="0 0 500 220"
+                        preserveAspectRatio="none"
+                        class="chart"
+                    >
+
+                        <line
+                            x1="0"
+                            y1="20"
+                            x2="500"
+                            y2="20"
+                            class="grid-line"
+                        />
+
+                        <line
+                            x1="0"
+                            y1="70"
+                            x2="500"
+                            y2="70"
+                            class="grid-line"
+                        />
+
+                        <line
+                            x1="0"
+                            y1="120"
+                            x2="500"
+                            y2="120"
+                            class="grid-line"
+                        />
+
+                        <line
+                            x1="0"
+                            y1="170"
+                            x2="500"
+                            y2="170"
+                            class="grid-line"
+                        />
+
+                        <line
+                            x1="0"
+                            y1="215"
+                            x2="500"
+                            y2="215"
+                            class="grid-line"
+                        />
+
+
+                        <path
+                            d="{{ graph_area_path }}"
+                            class="area"
+                        />
+
+
+                        <path
+                            d="{{ graph_path }}"
+                            class="graph-line"
+                        />
+
+                    </svg>
+
+
+                    <div class="x-axis">
+
+                        {% for label in graph_labels[:7] %}
+                            <span>{{ label }}</span>
+                        {% endfor %}
+
+                    </div>
+
+
+                </div>
+
+
+
+                <div class="current-box">
+
+
+                    <p>
+                        Current Level
+                    </p>
+
+
+                    <h3>
+
+                        {{
+                            "%.1f"|format(
+                                current_level
+                            )
+                        }}
+
+                        <small>
+                            ppm
+                        </small>
+
+                    </h3>
+
+
+                    <div class="safe-status">
+
+                        <span></span>
+
+                        {{ safety_status }}
+
+                    </div>
+
+
+                    <p class="updated">
+
+                        Updated 1 min ago
+
+                    </p>
+
+
+                </div>
+
+
+            </div>
+
+
+        </section>
+
+
+
+        <!-- =================================================
+             TWO COLUMNS
+             ================================================= -->
+
+        <div class="two-column">
+
+
+            <!-- CUMULATIVE -->
+
+            <section class="card cumulative-card">
+
+                <h2>
+                    Cumulative Exposure
+                </h2>
+
+                <div class="gauge">
+                    <div class="gauge-value">
+                        <strong>{{ "%.2f"|format(total_exposure) }} ppm</strong>
+                        <span>Cumulative H2S Exposure</span>
+                    </div>
+                    <div class="gauge-pointer"></div>
+                </div>
+
+                <div class="gauge-numbers">
+                    <span>0 ppm</span>
+                    <span>4 ppm</span>
+                    <span>8 ppm</span>
+                </div>
+
+                <a href="{{ url_for('daily_report') }}" class="report-button">
+                    View Full Report
+                    <span>→</span>
+                </a>
+
+            </section>
+
+
+            <!-- BADGE PHOTO -->
+
+            <section class="card badge-card">
+
+
+                <h2>
+                    Badge Photo
+                </h2>
+
+
+                <p class="captured">
+
+                    Last captured:
+
+                    {% if latest.recorded_at %}
+
+                        {{
+                            latest.recorded_at.strftime(
+                                "%d %b %Y, %I:%M %p"
+                            )
+                        }}
+
+                    {% else %}
+
+                        Not captured
+
+                    {% endif %}
+
+                </p>
+
+
+                <div class="badge-photo">
+
+                    <div class="reference">
+                        REFERENCE
+                    </div>
+
+                    <div class="color-blocks">
+
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+
+                    </div>
+
+                    <div class="photo-surface"></div>
+
+                </div>
+
+
+                <button
+                    class="capture-button"
+                    type="button"
+                >
+
+                    📷
+
+                    Capture New Photo
+
+                </button>
+
+
+            </section>
+
+
+        </div>
+
+
+
+        <!-- =================================================
+             QUICK ACTIONS
+             ================================================= -->
+
+        <section class="card quick-card">
+
+
+            <h2>
+                Quick Actions
+            </h2>
+
+
+            <div class="quick-actions">
+
+
+                <a
+                    href="{{ url_for('manual_guidelines') }}"
+                    class="quick-action"
+                >
+
+                    <span class="quick-icon">
+                        <svg viewBox="0 0 24 24" aria-hidden="true">
+                            <path d="M8 3H5a2 2 0 0 0-2 2v3M16 3h3a2 2 0 0 1 2 2v3M8 21H5a2 2 0 0 1-2-2v-3M16 21h3a2 2 0 0 0 2-2v-3" />
+                            <path d="M9 12h6M12 9v6" />
+                        </svg>
+                    </span>
+
+                    <span>
+
+                        Manual
+                        <br>
+                        Guidelines
+
+                    </span>
+
+                </a>
+
+
+                <a
+                    href="{{ url_for('history') }}"
+                    class="quick-action"
+                >
+
+                    <span class="quick-icon">
+                        <svg viewBox="0 0 24 24" aria-hidden="true">
+                            <path d="M4 19V5M4 19h17" />
+                            <path d="M8 16v-4M12 16V8M16 16V4M20 16v-7" />
+                        </svg>
+                    </span>
+
+                    <span>
+
+                        Exposure
+                        <br>
+                        History
+
+                    </span>
+
+                </a>
+
+
+                <a
+                    href="{{ url_for('health_guidelines') }}"
+                    class="quick-action"
+                >
+
+                    <span class="quick-icon">
+                        <svg viewBox="0 0 24 24" aria-hidden="true">
+                            <path d="M12 3 20 6v5c0 5-3.4 8.4-8 10-4.6-1.6-8-5-8-10V6l8-3Z" />
+                            <path d="m8.5 12 2.2 2.2 4.8-5" />
+                        </svg>
+                    </span>
+
+                    <span>
+
+                        Health
+                        <br>
+                        Guidelines
+
+                    </span>
+
+                </a>
+
+
+                <a
+                    href="{{ url_for('emergency_contacts') }}"
+                    class="quick-action"
+                >
+
+                    <span class="quick-icon">
+                        <svg viewBox="0 0 24 24" aria-hidden="true">
+                            <path d="m12 3 9 17H3L12 3Z" />
+                            <path d="M12 9v5M12 17h.01" />
+                        </svg>
+                    </span>
+
+                    <span>
+
+                        Emergency
+                        <br>
+                        Contacts
+
+                    </span>
+
+                </a>
+
+
+            </div>
+
+
+        </section>
+
+
+
+    </main>
+
+
+
+    <!-- =====================================================
+         BOTTOM NAVIGATION
+         ===================================================== -->
+
+    <nav class="bottom-nav">
+
+
+        <!-- HOME -->
+
+        <a
+            href="{{ url_for('home') }}"
+            class="nav-item active"
+        >
+
+            <span>
+                ⌂
+            </span>
+
+            Home
+
+        </a>
+
+
+
+        <!-- HISTORY -->
+
+        <a
+            href="{{ url_for('history') }}"
+            class="nav-item"
+        >
+
+            <span>
+                ◷
+            </span>
+
+            History
+
+        </a>
+
+
+
+        <!-- SCAN -->
+
+        <a
+            href="{{ url_for('scan') }}"
+            class="nav-item scan"
+        >
+
+            <span class="scan-icon">
+                <img
+                    src="{{ url_for('static', filename='images/scan.png') }}"
+                    alt="Scan"
+                >
+            </span>
+
+            Scan
+
+        </a>
+
+
+
+        <!-- ALERTS -->
+
+        <a
+            href="{{ url_for('alerts') }}"
+            class="nav-item"
+        >
+
+            <span>
+                ♧
+            </span>
+
+            Alerts
+
+        </a>
+
+
+
+        <!-- PROFILE - IMPORTANT -->
+
+        <a
+            href="{{ url_for('profile') }}"
+            class="nav-item"
+        >
+
+            <span>
+                👤
+            </span>
+
+            Profile
+
+        </a>
+
+
+    </nav>
+
+
+</div>
+
+
+</body>
+
+</html>

@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>H2S Guard - Emergency Contacts</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            background: #f8faf9;
+            color: #173e36;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        .contacts-page {
+            width: min(760px, 100%);
+            min-height: 100vh;
+            margin: 0 auto;
+            padding: 24px;
+        }
+
+        .contacts-header {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 24px;
+        }
+
+        .back-link {
+            color: #176c49;
+            font-size: 30px;
+            font-weight: 700;
+            text-decoration: none;
+        }
+
+        h1 {
+            margin: 0;
+            color: #176c49;
+            font-size: clamp(25px, 4vw, 36px);
+        }
+
+        .contacts-card {
+            padding: 28px;
+            border: 1px solid #dce7e1;
+            border-radius: 14px;
+            background: white;
+            box-shadow: 0 4px 16px rgba(25, 55, 45, 0.08);
+        }
+
+        .contact-item {
+            padding: 20px 0;
+            border-bottom: 1px solid #e5e9e7;
+            font-size: 20px;
+            line-height: 1.5;
+        }
+
+        .contact-item:first-child {
+            padding-top: 0;
+        }
+
+        .contact-item:last-child {
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+
+        .contact-number {
+            color: #176c49;
+            font-size: 28px;
+            font-weight: 700;
+        }
+
+        .contact-description {
+            display: block;
+            font-weight: 700;
+        }
+
+        @media (max-width: 600px) {
+            .contacts-page {
+                padding: 16px;
+            }
+
+            .contacts-card {
+                padding: 22px;
+            }
+
+            .contact-item {
+                font-size: 17px;
+            }
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <main class="contacts-page">
+
+        <header class="contacts-header">
+            <a class="back-link" href="{{ url_for('home') }}" aria-label="Back to home">&#8249;</a>
+            <h1>Emergency Contacts</h1>
+        </header>
+
+        <section class="contacts-card">
+            <div class="contact-item">
+                <strong class="contact-description">112 &mdash; National Emergency</strong>
+                <strong class="contact-description">Police, Fire, Rescue and other emergency services.</strong>
+            </div>
+
+            <div class="contact-item">
+                <strong class="contact-description">101 &mdash; Fire Brigade</strong>
+            </div>
+        </section>
+
+    </main>
+
+</body>
+
+</html>

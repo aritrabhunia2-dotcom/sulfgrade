@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>H2S Guard - Alerts</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/home.css') }}">
+
+    <style>
+        .alerts-page {
+            width: min(900px, 100%);
+            min-height: 100vh;
+            margin: 0 auto;
+            padding: 24px 35px 105px;
+        }
+
+        .alerts-header {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 24px;
+        }
+
+        .alerts-header a {
+            color: var(--green);
+            font-size: 42px;
+            line-height: 1;
+            text-decoration: none;
+        }
+
+        .alerts-header h1 {
+            margin: 0;
+            color: var(--dark-green);
+            font-size: 32px;
+        }
+
+        .alerts-card {
+            margin-top: 0;
+        }
+
+        @media (max-width: 650px) {
+            .alerts-page {
+                padding: 18px 15px 90px;
+            }
+
+            .alerts-header h1 {
+                font-size: 26px;
+            }
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <main class="alerts-page">
+
+        <header class="alerts-header">
+            <a href="{{ url_for('home') }}" aria-label="Back to home">&#8249;</a>
+            <h1>Alerts</h1>
+        </header>
+
+        <section class="safety-card alerts-card">
+
+            <div class="safety-icon">
+                !
+            </div>
+
+            <div class="safety-text">
+                <h3>Stay Safe!</h3>
+                <p>
+                    You are within safe exposure limits.
+                    <br>
+                    Keep monitoring your environment.
+                </p>
+            </div>
+
+            <div class="worker-icon">
+                👷
+            </div>
+
+        </section>
+
+    </main>
+
+</body>
+
+</html>

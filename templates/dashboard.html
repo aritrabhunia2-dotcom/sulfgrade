@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        H2S Guard - Dashboard
+    </title>
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='css/login.css') }}"
+    >
+
+</head>
+
+<body>
+
+
+<div class="simple-page">
+
+
+    <div class="simple-card dashboard">
+
+
+        <div class="success-circle">
+
+            ✓
+
+        </div>
+
+
+        <h2>
+
+            Welcome,
+            {{ name }}!
+
+        </h2>
+
+
+        <p>
+
+            You are successfully logged in
+            to H2S Guard.
+
+        </p>
+
+
+        <div class="dashboard-grid">
+
+
+            <div>
+
+                Real-time
+
+                <br>
+
+                <b>
+                    Monitoring
+                </b>
+
+            </div>
+
+
+            <div>
+
+                Exposure
+
+                <br>
+
+                <b>
+                    Insights
+                </b>
+
+            </div>
+
+
+            <div>
+
+                Smart
+
+                <br>
+
+                <b>
+                    Alerts
+                </b>
+
+            </div>
+
+
+        </div>
+
+
+        <a
+            href="{{ url_for('logout') }}"
+            class="login-button logout"
+        >
+
+            Logout
+
+        </a>
+
+
+    </div>
+
+
+</div>
+
+
+</body>
+
+</html>

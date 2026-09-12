@@ -1,0 +1,636 @@
+* {
+
+    margin: 0;
+
+    padding: 0;
+
+    box-sizing: border-box;
+
+}
+
+
+:root {
+
+    --green: #29965a;
+
+    --dark-green: #176c49;
+
+    --text: #173e36;
+
+    --gray: #71817d;
+
+    --border: #dce7e1;
+
+}
+
+
+body {
+
+    background: #f8faf9;
+
+    font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+
+    color: var(--text);
+
+}
+
+
+.profile-app {
+
+    max-width: 900px;
+
+    min-height: 100vh;
+
+    margin: auto;
+
+    padding-bottom: 105px;
+
+}
+
+
+/* =====================================================
+   HEADER
+   ===================================================== */
+
+.profile-header {
+
+    height: 105px;
+
+    background: white;
+
+    display: grid;
+
+    grid-template-columns:
+        70px 1fr 70px;
+
+    align-items: center;
+
+    padding:
+        20px 30px;
+
+    border-bottom:
+        1px solid #e7ece9;
+
+}
+
+
+.back-button {
+
+    text-decoration: none;
+
+    color: var(--green);
+
+    font-size: 58px;
+
+    line-height: 1;
+
+}
+
+
+.profile-header h1 {
+
+    font-size: 36px;
+
+    color: var(--dark-green);
+
+}
+
+
+.settings-button {
+
+    border: none;
+
+    background: transparent;
+
+    color: var(--green);
+
+    font-size: 35px;
+
+    cursor: pointer;
+
+}
+
+
+/* =====================================================
+   CONTENT
+   ===================================================== */
+
+.profile-content {
+
+    padding:
+        22px 35px;
+
+}
+
+
+/* =====================================================
+   PROFILE CARD
+   ===================================================== */
+
+.profile-card {
+
+    min-height: 205px;
+
+    border:
+        2px solid #d9e9e1;
+
+    border-radius: 18px;
+
+    background: #eff8f3;
+
+    display: flex;
+
+    align-items: center;
+
+    padding:
+        20px 28px;
+
+}
+
+
+/* =====================================================
+   USER INFORMATION
+   ===================================================== */
+
+.profile-main-info {
+
+    padding-left: 0;
+
+}
+
+
+.profile-main-info h2 {
+
+    font-size: 31px;
+
+    margin-bottom: 10px;
+
+    color: #143f35;
+
+}
+
+
+.profile-main-info p {
+
+    color: #55746c;
+
+    font-size: 20px;
+
+    margin:
+        8px 0;
+
+}
+
+
+/* =====================================================
+   SECTION
+   ===================================================== */
+
+.profile-section {
+
+    margin-top: 25px;
+
+}
+
+
+.section-title {
+
+    font-size: 29px;
+
+    color: #164b40;
+
+    margin-bottom: 10px;
+
+}
+
+
+/* =====================================================
+   CARD
+   ===================================================== */
+
+.information-card {
+
+    background: white;
+
+    border:
+        1px solid #e1e8e5;
+
+    border-radius: 18px;
+
+    overflow: hidden;
+
+    box-shadow:
+        0 2px 8px
+        rgba(25,55,45,0.04);
+
+}
+
+
+/* =====================================================
+   ROW
+   ===================================================== */
+
+.information-row {
+
+    min-height: 72px;
+
+    display: grid;
+
+    grid-template-columns:
+        65px 1fr auto 30px;
+
+    align-items: center;
+
+    padding:
+        0 22px;
+
+    border-bottom:
+        1px solid #e5e9e7;
+
+}
+
+
+.information-row:last-child {
+
+    border-bottom: none;
+
+}
+
+
+.row-icon {
+
+    color: var(--green);
+
+    font-size: 28px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+}
+
+
+.row-label {
+
+    color: #72847f;
+
+    font-size: 19px;
+
+}
+
+
+.row-value {
+
+    color: #203f3a;
+
+    font-size: 18px;
+
+    text-align: right;
+
+    padding-left: 20px;
+
+}
+
+
+.arrow {
+
+    color: #8ba19b;
+
+    font-size: 34px;
+
+    text-align: right;
+
+}
+
+
+/* =====================================================
+   ACTIONS
+   ===================================================== */
+
+.action-row {
+
+    min-height: 70px;
+
+    display: grid;
+
+    grid-template-columns:
+        65px 1fr 30px;
+
+    align-items: center;
+
+    padding:
+        0 22px;
+
+    border-bottom:
+        1px solid #e5e9e7;
+
+    text-decoration: none;
+
+}
+
+
+.action-row:last-child {
+
+    border-bottom: none;
+
+}
+
+
+.action-label {
+
+    color: #667873;
+
+    font-size: 19px;
+
+}
+
+
+.action-row:hover,
+.information-row:hover {
+
+    background: #f8fcfa;
+
+}
+
+
+/* =====================================================
+   BOTTOM NAV
+   ===================================================== */
+
+.profile-bottom-nav {
+
+    position: fixed;
+
+    bottom: 0;
+
+    left: 50%;
+
+    transform:
+        translateX(-50%);
+
+    width:
+        min(900px, 100%);
+
+    height: 92px;
+
+    background:
+        rgba(239,248,243,0.98);
+
+    border-top:
+        1px solid #dce8e2;
+
+    border-radius:
+        25px 25px 0 0;
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(5, 1fr);
+
+    z-index: 100;
+
+    box-shadow:
+        0 -4px 20px
+        rgba(35,70,55,0.08);
+
+}
+
+
+.profile-nav-item {
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 5px;
+
+    text-decoration: none;
+
+    color: #425f58;
+
+}
+
+
+.profile-nav-item span {
+
+    font-size: 30px;
+
+}
+
+
+.profile-nav-item small {
+
+    font-size: 14px;
+
+}
+
+
+.profile-nav-item.active {
+
+    color: var(--green);
+
+    font-weight: bold;
+
+}
+
+
+/* =====================================================
+   MOBILE
+   ===================================================== */
+
+@media (max-width: 650px) {
+
+    .profile-header {
+
+        height: 85px;
+
+        grid-template-columns:
+            50px 1fr 50px;
+
+        padding:
+            15px;
+
+    }
+
+
+    .back-button {
+
+        font-size: 48px;
+
+    }
+
+
+    .profile-header h1 {
+
+        font-size: 29px;
+
+    }
+
+
+    .settings-button {
+
+        font-size: 29px;
+
+    }
+
+
+    .profile-content {
+
+        padding:
+            18px 15px;
+
+    }
+
+
+    .profile-card {
+
+        min-height: 160px;
+
+        padding: 15px;
+
+    }
+
+
+    .profile-photo-container {
+
+        width: 120px;
+
+        height: 120px;
+
+    }
+
+
+    .profile-photo {
+
+        width: 120px;
+
+        height: 120px;
+
+    }
+
+
+    .profile-main-info {
+
+        padding-left: 18px;
+
+    }
+
+
+    .profile-main-info h2 {
+
+        font-size: 21px;
+
+    }
+
+
+    .profile-main-info p {
+
+        font-size: 14px;
+
+        margin: 5px 0;
+
+    }
+
+
+    .section-title {
+
+        font-size: 23px;
+
+    }
+
+
+    .information-row {
+
+        min-height: 62px;
+
+        grid-template-columns:
+            42px 1fr auto 20px;
+
+        padding:
+            0 10px;
+
+    }
+
+
+    .row-icon {
+
+        font-size: 23px;
+
+    }
+
+
+    .row-label {
+
+        font-size: 14px;
+
+    }
+
+
+    .row-value {
+
+        font-size: 13px;
+
+        max-width: 160px;
+
+        overflow-wrap: anywhere;
+
+    }
+
+
+    .arrow {
+
+        font-size: 27px;
+
+    }
+
+
+    .action-row {
+
+        min-height: 62px;
+
+        grid-template-columns:
+            42px 1fr 25px;
+
+        padding:
+            0 10px;
+
+    }
+
+
+    .action-label {
+
+        font-size: 15px;
+
+    }
+
+
+    .profile-bottom-nav {
+
+        height: 75px;
+
+    }
+
+
+    .profile-nav-item span {
+
+        font-size: 24px;
+
+    }
+
+
+    .profile-nav-item small {
+
+        font-size: 11px;
+
+    }
+
+}

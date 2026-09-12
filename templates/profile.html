@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        H2S Guard - Profile
+    </title>
+
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='css/profile.css') }}"
+    >
+
+</head>
+
+
+<body>
+
+
+<div class="profile-app">
+
+
+    <!-- =====================================================
+         HEADER
+         ===================================================== -->
+
+    <header class="profile-header">
+
+
+        <a
+            href="{{ url_for('home') }}"
+            class="back-button"
+        >
+
+            ‹
+
+        </a>
+
+
+        <h1>
+            Profile
+        </h1>
+
+
+        <button
+            type="button"
+            class="settings-button"
+        >
+
+            ⚙
+
+        </button>
+
+
+    </header>
+
+
+
+    <!-- =====================================================
+         MAIN
+         ===================================================== -->
+
+    <main class="profile-content">
+
+
+        <!-- =================================================
+             PROFILE CARD
+             ================================================= -->
+
+        <section class="profile-card">
+
+
+            <div class="profile-main-info">
+
+
+                <h2>
+
+                    {{ user.full_name }}
+
+                </h2>
+
+
+                <p>
+
+                    {{ user.designation or
+                       'Field Technician' }}
+
+                </p>
+
+
+                <p>
+
+                    ID:
+                    {{ user.worker_id }}
+
+                </p>
+
+
+                <p>
+
+                    Department:
+                    {{ user.department or
+                       'Operations' }}
+
+                </p>
+
+
+            </div>
+
+
+        </section>
+
+
+
+        <!-- =================================================
+             PERSONAL INFORMATION
+             ================================================= -->
+
+        <section class="profile-section">
+
+
+            <h2 class="section-title">
+
+                Personal Information
+
+            </h2>
+
+
+            <div class="information-card">
+
+
+                <!-- NAME -->
+
+                <div class="information-row">
+
+                    <div class="row-icon">
+                        👤
+                    </div>
+
+                    <div class="row-label">
+                        Name
+                    </div>
+
+                    <div class="row-value">
+                        {{ user.full_name }}
+                    </div>
+
+                    <div class="arrow">
+                        ›
+                    </div>
+
+                </div>
+
+
+                <!-- EMAIL -->
+
+                <div class="information-row">
+
+                    <div class="row-icon">
+                        ✉
+                    </div>
+
+                    <div class="row-label">
+                        Email
+                    </div>
+
+                    <div class="row-value">
+                        {{ user.email }}
+                    </div>
+
+                    <div class="arrow">
+                        ›
+                    </div>
+
+                </div>
+
+
+                <!-- PHONE -->
+
+                <div class="information-row">
+
+                    <div class="row-icon">
+                        ☎
+                    </div>
+
+                    <div class="row-label">
+                        Phone
+                    </div>
+
+                    <div class="row-value">
+                        {{ user.mobile }}
+                    </div>
+
+                    <div class="arrow">
+                        ›
+                    </div>
+
+                </div>
+
+
+            </div>
+
+
+        </section>
+
+
+
+        <!-- =================================================
+             WORK INFORMATION
+             ================================================= -->
+
+        <section class="profile-section">
+
+
+            <h2 class="section-title">
+
+                Work Information
+
+            </h2>
+
+
+            <div class="information-card">
+
+
+                <!-- SITE -->
+
+                <div class="information-row">
+
+                    <div class="row-icon">
+                        ⌖
+                    </div>
+
+                    <div class="row-label">
+                        Site
+                    </div>
+
+                    <div class="row-value">
+
+                        {{ user.site or
+                           'MRPL - Refinery' }}
+
+                    </div>
+
+                    <div class="arrow">
+                        ›
+                    </div>
+
+                </div>
+
+
+                <!-- SHIFT -->
+
+                <div class="information-row">
+
+                    <div class="row-icon">
+                        ◷
+                    </div>
+
+                    <div class="row-label">
+                        Shift
+                    </div>
+
+                    <div class="row-value">
+
+                        {{ user.shift or
+                           'Day (6:00 AM - 2:00 PM)' }}
+
+                    </div>
+
+                    <div class="arrow">
+                        ›
+                    </div>
+
+                </div>
+
+
+                <!-- DESIGNATION -->
+
+                <div class="information-row">
+
+                    <div class="row-icon">
+                        ▣
+                    </div>
+
+                    <div class="row-label">
+                        Designation
+                    </div>
+
+                    <div class="row-value">
+
+                        {{ user.designation or
+                           'Field Technician' }}
+
+                    </div>
+
+                    <div class="arrow">
+                        ›
+                    </div>
+
+                </div>
+
+
+            </div>
+
+
+        </section>
+
+
+
+        <!-- =================================================
+             QUICK ACTIONS
+             ================================================= -->
+
+        <section class="profile-section">
+
+
+            <h2 class="section-title">
+
+                Quick Actions
+
+            </h2>
+
+
+            <div class="information-card actions-card">
+
+
+                <!-- EDIT -->
+
+                <a
+                    href="{{ url_for('edit_profile') }}"
+                    class="action-row"
+                >
+
+                    <div class="row-icon">
+                        ✎
+                    </div>
+
+                    <div class="action-label">
+                        Edit Profile
+                    </div>
+
+                    <div class="arrow">
+                        ›
+                    </div>
+
+                </a>
+
+
+                <!-- PASSWORD -->
+
+                <a
+                    href="{{ url_for('forgot_password') }}"
+                    class="action-row"
+                >
+
+                    <div class="row-icon">
+                        🔒
+                    </div>
+
+                    <div class="action-label">
+                        Change Password
+                    </div>
+
+                    <div class="arrow">
+                        ›
+                    </div>
+
+                </a>
+
+
+                <!-- LOGOUT -->
+
+                <a
+                    href="{{ url_for('logout') }}"
+                    class="action-row"
+                >
+
+                    <div class="row-icon">
+                        ⇥
+                    </div>
+
+                    <div class="action-label">
+                        Logout
+                    </div>
+
+                    <div class="arrow">
+                        ›
+                    </div>
+
+                </a>
+
+
+            </div>
+
+
+        </section>
+
+
+    </main>
+
+
+
+    <!-- =====================================================
+         BOTTOM NAVIGATION
+         ===================================================== -->
+
+    <nav class="profile-bottom-nav">
+
+
+        <!-- HOME -->
+
+        <a
+            href="{{ url_for('home') }}"
+            class="profile-nav-item"
+        >
+
+            <span>
+                ⌂
+            </span>
+
+            <small>
+                Home
+            </small>
+
+        </a>
+
+
+        <!-- SCAN -->
+
+        <a
+            href="#"
+            class="profile-nav-item"
+        >
+
+            <span>
+                ⛶
+            </span>
+
+            <small>
+                Scan
+            </small>
+
+        </a>
+
+
+        <!-- HISTORY -->
+
+        <a
+            href="#"
+            class="profile-nav-item"
+        >
+
+            <span>
+                ◷
+            </span>
+
+            <small>
+                History
+            </small>
+
+        </a>
+
+
+        <!-- GUIDE -->
+
+        <a
+            href="#"
+            class="profile-nav-item"
+        >
+
+            <span>
+                ▤
+            </span>
+
+            <small>
+                Guide
+            </small>
+
+        </a>
+
+
+        <!-- PROFILE -->
+
+        <a
+            href="{{ url_for('profile') }}"
+            class="profile-nav-item active"
+        >
+
+            <span>
+                👤
+            </span>
+
+            <small>
+                Profile
+            </small>
+
+        </a>
+
+
+    </nav>
+
+
+</div>
+
+
+</body>
+
+</html>
