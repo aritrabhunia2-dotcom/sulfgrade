@@ -119,6 +119,9 @@
         }
     </style>
 
+    <link rel="manifest" href="{{ url_for('static', filename='manifest.json') }}">
+    <meta name="theme-color" content="#176c49">
+    <link rel="apple-touch-icon" href="{{ url_for('static', filename='images/icon-192.png') }}">
 </head>
 
 <body>
@@ -175,6 +178,7 @@
 
     </main>
 
+    <script src="{{ url_for('static', filename='js/pwa-register.js') }}"></script>
 </body>
 
 </html>
