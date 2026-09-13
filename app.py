@@ -35,7 +35,11 @@ except ImportError as exc:
 app = Flask(__name__)
 app.secret_key = os.environ.get("SECRET_KEY", "h2s_guard_secret_key_2026")
 
-SQLITE_DB_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), "h2s_guard.db")
+DEFAULT_SQLITE_DB_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), "h2s_guard.db")
+SQLITE_DB_PATH = os.environ.get(
+    "SQLITE_DB_PATH",
+    "/tmp/h2s_guard.db" if os.environ.get("VERCEL") else DEFAULT_SQLITE_DB_PATH,
+)
 MODEL_PATH = Path(__file__).resolve().parent / "h2sapp" / "h2s_rf_model.pkl"
 ALLOWED_SCAN_EXTENSIONS = {"jpg", "jpeg", "png", "bmp", "webp"}
 
@@ -996,4 +1000,8 @@ def logout():
 
 
 if __name__ == "__main__":
-    app.run(host="127.0.0.1", port=5000, debug=True)
+    app.run(
+        host="127.0.0.1",
+        port=int(os.environ.get("PORT", "5000")),
+        debug=os.environ.get("FLASK_DEBUG", "0") == "1",
+    )

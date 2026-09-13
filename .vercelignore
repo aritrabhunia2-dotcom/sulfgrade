@@ -1,0 +1,8 @@
+.venv/
+__pycache__/
+h2s_guard.db
+h2sapp/dataset/
+h2sapp/h2s_training_data.csv
+h2sapp/extract_data.py
+h2sapp/frontend.py
+h2sapp/train_model.py
