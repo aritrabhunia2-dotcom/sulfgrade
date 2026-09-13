@@ -753,6 +753,7 @@ def scan():
 
                 result = analysis
                 flash("H2S strip analyzed and reading saved.", "success")
+                return redirect(url_for("home"))
             except Exception as exc:
                 flash(f"Unable to analyze image: {exc}", "error")
 
