@@ -511,7 +511,7 @@ def home():
             }
 
         cursor.execute(
-            "SELECT id, h2s_level, exposure_ppm_hr, recorded_at FROM exposure_records WHERE user_id = %s ORDER BY recorded_at DESC LIMIT 1",
+            "SELECT id, h2s_level, exposure_ppm_hr, recorded_at FROM exposure_records WHERE user_id = %s ORDER BY recorded_at DESC, id DESC LIMIT 1",
             (user_id,),
         )
         latest = normalize_row(cursor.fetchone())
