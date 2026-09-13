@@ -290,6 +290,13 @@ def get_current_user():
             connection.close()
 
 
+@app.route("/sw.js")
+def service_worker():
+    response = send_from_directory(app.static_folder, "sw.js")
+    response.headers["Service-Worker-Allowed"] = "/"
+    return response
+
+
 @app.route("/")
 def index():
     if "user_id" in session and get_current_user() is not None:
